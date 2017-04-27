@@ -30,6 +30,17 @@
         </dependency>
 
 
+        <!--spring-boot-starter-data-jpa中已经包含了hibernate所需要的相关依赖，所以只需要引入Jpa的依赖即可。-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 
