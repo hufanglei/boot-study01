@@ -1,12 +1,16 @@
 package com.hfl.service;
 
 import com.hfl.model.User;
+import com.hfl.tools.PageableTools;
 import com.hfl.tools.SortDto;
 import com.hfl.tools.SortTools;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -162,5 +166,52 @@ public class UserTest {
             System.out.println(u.getId()+"===="+u.getUserName());
         }
     }
+
+    //原生分页
+    //继承了JpaRepository后的IUserService拥有了findAll的重载方法，当传入参数为Pageable时，返回传则是一个分页的对象Page。
+    @Test
+    public void test1() {
+        Pageable pageable =new PageRequest(0, 5);
+        Page<User> datas = userService.findAll(pageable);
+        System.out.println("总条数："+datas.getTotalElements());
+        System.out.println("总页数："+datas.getTotalPages());
+        for(User u : datas) {
+            System.out.println(u.getId()+"===="+u.getUserName());
+        }
+    }
+
+    //测试传页码和条数
+    private void print(Page<User> datas) {
+        System.out.println("总条数："+datas.getTotalElements());
+        System.out.println("总页数："+datas.getTotalPages());
+        for(User u : datas) {
+            System.out.println(u.getId()+"===="+u.getUserName());
+        }
+    }
+
+    @Test
+    public void test2() {
+        Page<User> datas = userService.findAll(PageableTools.basicPage(0));
+        print(datas);
+    }
+
+    //测试传页码和条数
+    @Test
+    public void test3() {
+        Page<User> datas = userService.findAll(PageableTools.basicPage(1, 5));
+        print(datas);
+    }
+
+    //测试传页码、条数和排序
+    @Test
+    public void test4() {
+        Page<User> datas = userService.findAll(PageableTools.basicPage(1, 5, new SortDto("id")));
+        print(datas);
+
+        Page<User> datas2 = userService.findAll(PageableTools.basicPage(1, 5, new SortDto("ASC", "id")));
+        print(datas2);
+    }
+
+    //
 
 }
