@@ -1,10 +1,13 @@
 package com.hfl.service;
 
 import com.hfl.model.User;
+import com.hfl.tools.SortDto;
+import com.hfl.tools.SortTools;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -58,12 +61,13 @@ public class UserTest {
     @Test
     public void testDelete() {
         userService.delete(1);
+        //userService.deleteAll();
     }
 
     //列表数据
     @Test
     public void testAddBatch() {
-        for(Integer i=0; i < 5; i++) {
+        for(Integer i=0; i < 10; i++) {
             User user = new User();
             user.setNickName("昵称"+i);
             user.setUserName("user"+i);
@@ -79,6 +83,83 @@ public class UserTest {
         List<User> list = userService.findAll();
         for(User u : list) {
             System.out.println("nickName : "+u.getNickName()+", email : "+u.getEmail());
+        }
+    }
+
+    //通过字段获取数据
+    @Test
+    public void testFindById() {
+        User u = userService.findById(3);
+        System.out.println("nickName : "+u.getNickName()+", email : "+u.getEmail());
+    }
+
+    //通过用户名获取用户
+    @Test
+    public void testFindByUserName() {
+        User u = userService.findByUserName("user3");
+        System.out.println("nickName : "+u.getNickName()+", email : "+u.getEmail());
+    }
+
+    //通过用户名和密码获取用户
+    @Test
+    public void testFindByNameAndPwd() {
+        User u = userService.findByUserNameAndPassword("user4", "pwd4");
+        System.out.println("nickName : "+u.getNickName()+", email : "+u.getEmail());
+    }
+
+
+    @Test
+    public void testQuery() {
+        List<User> list = userService.findAll("user3");
+        System.out.println(list.size());
+    }
+
+    @Test
+    public void testUpdate2() {
+        userService.updatePwd("user1", "123456");
+    }
+
+    @Test
+    public void testDelete2() {
+        userService.deleteByUserName("user4");
+    }
+
+    @Test
+    public void testUpdate3() {
+        userService.updateEmail("user2", "user2@qq.com");
+    }
+
+    //排序
+    @Test
+    public void testPage() {
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        List<User> list = userService.findAll(sort);
+        for(User u : list) {
+            System.out.println(u.getUserName());
+        }
+    }
+
+    @Test
+    public void testSort2() {
+        List<User> list = userService.findAll(SortTools.basicSort());
+        for(User u : list) {
+            System.out.println(u.getUserName());
+        }
+    }
+
+    @Test
+    public void testSort3() {
+        List<User> list = userService.findAll(SortTools.basicSort("desc", "userName"));
+        for(User u : list) {
+            System.out.println(u.getUserName());
+        }
+    }
+
+    @Test
+    public void testSort4() {
+        List<User> list = userService.findAll(SortTools.basicSort(new SortDto("desc", "userName"), new SortDto("id")));
+        for(User u : list) {
+            System.out.println(u.getId()+"===="+u.getUserName());
         }
     }
 
