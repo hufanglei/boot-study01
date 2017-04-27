@@ -68,3 +68,27 @@ Sort sort = new Sort(Sort.Direction.DESC, "id");：表示通过id进行降序排
 筛选功能需要继承于JpaSpecificationExecutor接口
 封装筛选对象
 多条件筛选
+
+11. Springboot 之 使用Scheduled做定时任务
+在程序入口的类上加上注释@EnableScheduling即可开启定时任务。
+编写定时任务类
+
+@Component
+public class MyTimer {
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    @Scheduled(fixedRate = 3000)
+    public void timerRate() {
+        System.out.println(sdf.format(new Date()));
+    }
+}
+
+@Scheduled(fixedRate=3000)：上一次开始执行时间点后3秒再次执行；
+
+@Scheduled(fixedDelay=3000)：上一次执行完毕时间点后3秒再次执行；
+
+@Scheduled(initialDelay=1000, fixedDelay=3000)：第一次延迟1秒执行，然后在上一次执行完毕时间点后3秒再次执行；
+
+@Scheduled(cron="* * * * * ?")：按cron规则执行。
+
+
+12. Springboot 之 JavaMailSender发送电子邮件

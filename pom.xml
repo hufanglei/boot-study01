@@ -42,6 +42,13 @@
         </dependency>
 
 
+        <!--验证码发送、密码找回邮件发送、事件通知邮件发送等-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 
