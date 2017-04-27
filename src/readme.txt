@@ -64,4 +64,7 @@ Sort sort = new Sort(Sort.Direction.DESC, "id");：表示通过id进行降序排
 继承了JpaRepository后的IUserService拥有了findAll的重载方法，当传入参数为Pageable时，返回传则是一个分页的对象Page。
 
 
-Springboot 之 使用JPA做数据筛选
+10.Springboot 之 使用JPA做数据筛选
+筛选功能需要继承于JpaSpecificationExecutor接口
+封装筛选对象
+多条件筛选

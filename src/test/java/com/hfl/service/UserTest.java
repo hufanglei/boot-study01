@@ -1,9 +1,8 @@
 package com.hfl.service;
 
+import com.hfl.dto.SearchDto;
 import com.hfl.model.User;
-import com.hfl.tools.PageableTools;
-import com.hfl.tools.SortDto;
-import com.hfl.tools.SortTools;
+import com.hfl.tools.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,6 +211,31 @@ public class UserTest {
         print(datas2);
     }
 
-    //
+    //筛选对象
+    private void print(List<User> list) {
+        for(User u : list) {
+            System.out.println(u.getId()+"==="+u.getUserName());
+        }
+    }
+
+    @Test
+    public void test6() {
+        List<User> list = userService.findAll(new BaseSearch<User>(new SearchDto("userName","eq", "user1")));
+        print(list);
+    }
+
+    //测试创建筛选功能对象
+    @Test
+    public void test7() {
+        List<User> list = userService.findAll(SearchTools.buildSpecification(
+                SearchTools.buildSpeDto("and", new SearchDto("and", "id", "gt", 2)),
+                SearchTools.buildSpeDto("and", new SearchDto("userName", "ne", "user5"),
+                        new SearchDto("or", "userName", "ne", "user9"))
+        ));
+        print(list);
+    }
+
+
+
 
 }
