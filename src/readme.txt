@@ -92,3 +92,39 @@ public class MyTimer {
 
 
 12. Springboot 之 JavaMailSender发送电子邮件
+
+13. Springboot 之 JPA对Mysql数据库的增删改查
+
+14.Springboot 之 使用JPA对数据进行排序
+
+15. Springboot 之 使用JPA进行分页操作
+
+16. Springboot 之 使用JPA做数据筛选
+
+17. Springboot 之 使用Scheduled做定时任务
+
+18.Springboot 之 JavaMailSender发送电子邮件
+
+19.Springboot 之 静态资源路径配置c
+在Springboot中默认的静态资源路径有：classpath:/META-INF/resources/，classpath:/resources/，classpath:/static/，classpath:/public/，
+从这里可以看出这里的静态资源路径都是在classpath中（也就是在项目路径下指定的这几个文件夹）
+application.properties配置文件如下：
+server.port=1122
+
+web.upload-path=D:/temp/study13/
+
+spring.mvc.static-path-pattern=/**
+spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,\
+  classpath:/static/,classpath:/public/,file:${web.upload-path}
+
+注意：web.upload-path这个属于自定义的属性，指定了一个路径，注意要以/结尾；
+
+spring.mvc.static-path-pattern=/**表示所有的访问都经过静态资源路径；
+
+spring.resources.static-locations在这里配置静态资源路径，前面说了这里的配置是覆盖默认配置，所以需要将默认的也加上否则static、public等这些路径将不能被当作静态资源路径，
+在这个最末尾的file:${web.upload-path}之所有要加file:是因为指定的是一个具体的硬盘路径，其他的使用classpath指的是系统环境变量
+
+20.Thymeleaf 之 简要概述   Thymeleaf 之 HelloWorld
+Thymeleaf是一个页面模板，类似于Freemarker、Velocity等，但Thymeleaf可以在服务器环境和静态环境下都能正常运行的页面模板，深受前后端分离开发的团队人员的青睐。
+Thymeleaf的数据展现全部通过以th:开头的html自定义标签来完成。当运行在服务器环境时将会按规则替换th:对应的地方显示出服务器上的数据，当运行在静态环境时，html会自动过虑th:开头的属性，
+显示默认的数据，从而达到两者都能正常运行。
