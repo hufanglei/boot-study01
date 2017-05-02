@@ -143,3 +143,43 @@ http://blog.csdn.net/zsl129/article/details/52916890
 
 测试结果： ctrl + f9 热部署编译java源文件
           ctrl + shift + f9  热部署编辑html
+
+
+22. Springboot 之 POI导出Word文件
+     http://blog.csdn.net/zsl129/article/details/52957896
+
+     关键的依赖是poi的jar包：
+     <dependency>
+         <groupId>org.apache.poi</groupId>
+         <artifactId>poi</artifactId>
+         <version>3.15</version>
+     </dependency>
+     <dependency>
+         <groupId>org.apache.poi</groupId>
+         <artifactId>poi-scratchpad</artifactId>
+         <version>3.15</version>
+     </dependency>
+
+     关键的方法:
+     tmpFile： 模板文件
+     contentMap：数据模型，包含具体数据的map对象
+     exportFile：需要保存导出文件的路径
+     private void build(File tmpFile, Map<String, String> contentMap, String exportFile) throws Exception {
+         FileInputStream tempFileInputStream = new FileInputStream(tmpFile);
+         HWPFDocument document = new HWPFDocument(tempFileInputStream);
+         // 读取文本内容
+         Range bodyRange = document.getRange();
+         // 替换内容
+         for (Map.Entry<String, String> entry : contentMap.entrySet()) {
+             bodyRange.replaceText("${" + entry.getKey() + "}", entry.getValue());
+         }
+
+         //导出到文件
+         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+         document.write(byteArrayOutputStream);
+         OutputStream outputStream = new FileOutputStream(exportFile);
+         outputStream.write(byteArrayOutputStream.toByteArray());
+         outputStream.close();
+     }
+
+      测试结果: WORD2003可行  word2007 不可以
