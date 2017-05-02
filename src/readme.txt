@@ -128,3 +128,18 @@ spring.resources.static-locations在这里配置静态资源路径，前面说�
 Thymeleaf是一个页面模板，类似于Freemarker、Velocity等，但Thymeleaf可以在服务器环境和静态环境下都能正常运行的页面模板，深受前后端分离开发的团队人员的青睐。
 Thymeleaf的数据展现全部通过以th:开头的html自定义标签来完成。当运行在服务器环境时将会按规则替换th:对应的地方显示出服务器上的数据，当运行在静态环境时，html会自动过虑th:开头的属性，
 显示默认的数据，从而达到两者都能正常运行。
+
+21. Thymeleaf 之 使用devtools热启动、热部署
+http://blog.csdn.net/zsl129/article/details/52916890
+
+
+①spring.thymeleaf.cache=false方式
+
+在application.properties中加入配置：spring.thymeleaf.cache=false；
+
+运行入口函数：启动RootApplication里的main函数，启动成功后再停止（这步只需要执行一次即可，如果直接执行第三步将无法热启动）；
+
+使用maven方式启动：mvn spring-boot:run。
+
+测试结果： ctrl + f9 热部署编译java源文件
+          ctrl + shift + f9  热部署编辑html

@@ -17,6 +17,8 @@ public class IndexController {
     @RequestMapping(value = "hello")
     public String index(Model model) {
         model.addAttribute("name","胡方雷");
+        model.addAttribute("password","123456");
+        model.addAttribute("sss","123");
         return "/web/index";
     }
 
