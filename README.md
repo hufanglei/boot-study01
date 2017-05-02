@@ -75,7 +75,7 @@ Sort sort = new Sort(Sort.Direction.DESC, "id");：表示通过id进行降序排
 11. Springboot 之 使用Scheduled做定时任务
 在程序入口的类上加上注释@EnableScheduling即可开启定时任务。
 编写定时任务类
-
+ ```
 @Component
 public class MyTimer {
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -84,6 +84,7 @@ public class MyTimer {
         System.out.println(sdf.format(new Date()));
     }
 }
+```
 
 @Scheduled(fixedRate=3000)：上一次开始执行时间点后3秒再次执行；
 
@@ -152,6 +153,7 @@ http://blog.csdn.net/zsl129/article/details/52916890
      http://blog.csdn.net/zsl129/article/details/52957896
 
      关键的依赖是poi的jar包：
+     ```
      <dependency>
          <groupId>org.apache.poi</groupId>
          <artifactId>poi</artifactId>
@@ -162,15 +164,14 @@ http://blog.csdn.net/zsl129/article/details/52916890
          <artifactId>poi-scratchpad</artifactId>
          <version>3.15</version>
      </dependency>
-
+      ```
      关键的方法:
-     
-    ``` javascript ```
       
      tmpFile： 模板文件
      contentMap：数据模型，包含具体数据的map对象
      exportFile：需要保存导出文件的路径
      
+     ```  
      private void build(File tmpFile, Map<String, String> contentMap, String exportFile) throws Exception {
        
          FileInputStream tempFileInputStream = new FileInputStream(tmpFile);
@@ -191,12 +192,118 @@ http://blog.csdn.net/zsl129/article/details/52916890
          outputStream.write(byteArrayOutputStream.toByteArray());
          outputStream.close();
      }
-    ```  
-
+     ```  
+    
       测试结果: WORD2003可行  word2007 不可以
       
 ###23.基础框架 详情见
       https://github.com/zsl131/web-basic.git
       
-####24      
+####24  使用POI读取解析Excel文件
+    http://blog.csdn.net/zsl129/article/details/52960770
+    
+###25  Springboot 之 使用POI导出Excel文件   
+  
+     使用beanUtils需要导入jar包  
+           
+      <dependency>
+                 <groupId>commons-beanutils</groupId>
+                 <artifactId>commons-beanutils</artifactId>
+                 <version>1.9.3</version>
+      </dependency>
+      
 
+### 26.Thymeleaf 之 初步使用    
+    
+      非表单数据显示（字符串拼接）
+      表单数据显示
+      三目运算
+      if判断
+      switch选择及case应用
+      each循环（循环中状态对象的各属性）
+      
+     1)  在JSP的表单中是这样：
+       
+       <form:input name="userName" value="${user.name}" />
+       
+       在Thymeleaf中是这样：
+       
+       <input type="text" name="userName" value="zslin" th:value="${user.name}" />
+
+       在Thymeleaf中必须要有结尾，如JSP可以是：<input>而Thymeleaf则必须是：<input/>
+       
+     2)三目运算及表单显示
+     <input th:value="${name}"/>
+     <input th:value="${age gt 30 ? '中年':'年轻'}"/>  
+     gt：great than（大于）       
+     ge：great equal（大于等于）      
+     eq：equal（等于）        
+     lt：less than（小于）        
+     le：less equal（小于等于）       
+     ne：not equal（不等于）     
+     
+    3) if判断
+     <h1>
+         <b th:text="${name}"></b>：
+         <span th:if="${age gt 30}">中年</span>
+         <span th:unless="${age gt 30}">年轻</span>
+     </h1>
+     
+    4)switch选择
+     <p th:switch="${age}">
+         <p th:case="29">奔三</p>
+         <p th:case="*">其他年龄</p>
+     </p>
+     
+     5)each循环
+     
+### 27.Thymeleaf 之 页面模板应用 
+
+### 28.
+Thymeleaf 之 内置对象、定义变量、URL参数及标签自定义属性
+
+http://blog.csdn.net/zsl129/article/details/53007192
+在Thymeleaf中可以使用th:加上标签的任何属性进行赋值，但有些时候会遇到自定义的属性，再用th:加自定义的属性则会无效。比如：需要对<span>标签增加objName和objId这样的属性，在非Thymeleaf情况下是这样：
+
+<span objId="1" objName="知识林"></span>
+变量情况是：
+<span objId="${obj.id}" objName="${obj.name}"></span>
+在Thymeleaf下则是：
+<span th:attr="myDate=${#dates.format(curDate, 'yyyy-mm-dd')}, myMoney=${money}"></span>
+说明： 在页面上查看源代码可以看到：<span myMoney="91.6059494319957" myDate="2016-31-02"></span>，说明自定义属性用：th:attr，多个属性用,隔开。
+
+内置对象
+上面简单描述了比较常用的dates、lists、numbers这几个内置对象，在Thymeleaf还有很多的内置对象，像strings也非常常用，用法跟Java.lang.String类的用法一样。
+
+在Thymeleaf中的内置对象有：
+
+/#dates：日期格式化内置对象，具体方法可以参照java.util.Date；
+
+/#calendars：类似于#dates，但是是java.util.Calendar类的方法；
+
+/#numbers： 数字格式化；
+
+/strings：字符串格式化，具体方法可以参照java.lang.String，如startsWith、contains等；
+
+/#objects：参照java.lang.Object；
+
+/#bools：判断boolean类型的工具；
+
+/#arrays：数组操作的工具；
+
+/#lists：列表操作的工具，参照java.util.List；
+
+/#sets：Set操作工具，参照java.util.Set；
+
+/#maps：Map操作工具，参照java.util.Map；
+
+/#aggregates：操作数组或集合的工具；
+
+/#messages：操作消息的工具。
+
+## Springboot 之 多文件上传
+ 
+    
+    
+     
+     
