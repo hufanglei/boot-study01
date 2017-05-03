@@ -73,6 +73,7 @@ Sort sort = new Sort(Sort.Direction.DESC, "id");：表示通过id进行降序排
 多条件筛选
 
 11. Springboot 之 使用Scheduled做定时任务
+http://blog.csdn.net/zsl129/article/details/52895940
 在程序入口的类上加上注释@EnableScheduling即可开启定时任务。
 编写定时任务类
  ```
@@ -96,6 +97,7 @@ public class MyTimer {
 
 
 12. Springboot 之 JavaMailSender发送电子邮件
+http://blog.csdn.net/zsl129/article/details/52903275
 
 13. Springboot 之 JPA对Mysql数据库的增删改查
 
