@@ -304,6 +304,15 @@ http://blog.csdn.net/zsl129/article/details/53007192
 /#messages：操作消息的工具。
 
 ## Springboot 之 多文件上传
+
+ -------------------------------------------------
+## 自己的小练习
+ spring的前期知识准备 http://www.iteye.com/topic/1123824
+ 
+com.hfl.test  反射 jdk代理，cglib代理  
+ 
+ 注解
+ 
  
     
     
